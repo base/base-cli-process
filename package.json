@@ -21,13 +21,21 @@
     "test": "mocha"
   },
   "dependencies": {
+    "arr-union": "^3.1.0",
+    "arrayify-compact": "^0.2.0",
     "base-cli": "^0.4.26",
+    "base-cli-schema": "^0.1.3",
+    "base-config-process": "^0.1.0",
     "base-option": "^0.7.0",
+    "base-pkg": "^0.2.0",
     "debug": "^2.2.0",
     "export-files": "^2.1.1",
+    "kind-of": "^3.0.2",
     "lazy-cache": "^1.0.3",
     "log-utils": "^0.1.0",
+    "merge-deep": "^2.0.2",
     "mixin-deep": "^1.1.3",
+    "object.pick": "^1.1.2",
     "os-homedir": "^1.0.1",
     "union-value": "^0.2.3"
   },
@@ -36,6 +44,7 @@
     "base": "^0.8.1",
     "base-data": "^0.4.0",
     "base-pipeline": "^0.2.5",
+    "delete": "^0.3.0",
     "engine-base": "^0.1.2",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
@@ -69,7 +78,7 @@
       "list": [
         "base",
         "base-cli",
-        "base-cli-schema"
+        "base-config"
       ]
     },
     "reflinks": [
