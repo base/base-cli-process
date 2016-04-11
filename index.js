@@ -9,10 +9,14 @@ var utils = require('./lib/utils');
  */
 
 module.exports = function(config) {
+  config = config || {};
+
   return function(app, base) {
     if (!this.isApp) return;
     if (this.isRegistered('base-cli-process')) return;
-    var options = opts(app, config);
+    debug('initializing <%s>, called from <%s>', __filename, module.parent.id);
+
+    var options = createOpts(app, config);
     var schema;
 
     if (typeof this.cli === 'undefined') {
@@ -34,7 +38,7 @@ module.exports = function(config) {
         schema = val;
       },
       get: function() {
-        return schema || utils.schema(app, opts(app, config));
+        return schema || utils.schema(app, createOpts(app, config));
       }
     });
 
@@ -47,7 +51,18 @@ module.exports = function(config) {
     var fn = this.cli.process;
 
     this.cli.process = function(val, cb) {
-      var obj = this.schema.normalize(val, opts(app, config));
+      debug('normalizing argv object', val);
+
+      var defaults = {
+        sortArrays: false,
+        omitEmpty: true,
+        keys: ['run', 'toc', 'layout', 'tasks', 'options', 'data', 'plugins', 'related', 'reflinks']
+      };
+
+      var opts = createOpts(app, config, defaults);
+      var obj = this.schema.normalize(val, opts);
+
+      debug('processing normalized argv', obj);
       fn.call(this, obj, function(err) {
         if (err) return cb(err);
         cb(null, obj);
@@ -56,7 +71,10 @@ module.exports = function(config) {
   };
 };
 
-function opts(app, config) {
+function createOpts(app, config, defaults) {
+  if (typeof defaults !== 'undefined') {
+    config = utils.merge({}, defaults, config);
+  }
   var options = utils.merge({}, config, app.options);
   if (options.schema) {
     return utils.merge({}, options, options.schema);
