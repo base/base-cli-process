@@ -14,10 +14,10 @@ describe('.map.tasks', function() {
   });
 
   describe('argv', function() {
-    it('should remove empty tasks array', function(cb) {
+    it('should return booleans', function(cb) {
       base.cli.process(['--tasks'], function(err, config) {
         if (err) return cb(err);
-        assert.equal(typeof config.tasks, 'undefined');
+        assert.equal(typeof config.tasks, 'boolean');
         cb();
       });
     });

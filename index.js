@@ -19,17 +19,7 @@ module.exports = function(config) {
     var options = createOpts(app, config);
     var schema;
 
-    if (typeof this.cli === 'undefined') {
-      this.use(utils.cli(options));
-    }
-
-    if (typeof this.option === 'undefined') {
-      this.use(utils.option(options));
-    }
-
-    if (typeof this.config === 'undefined') {
-      this.use(utils.config(options));
-    }
+    initPlugins(this, options);
 
     Object.defineProperty(this.cli, 'schema', {
       cliurable: true,
@@ -70,6 +60,21 @@ module.exports = function(config) {
     };
   };
 };
+
+function initPlugins(app, options) {
+  if (typeof app.option === 'undefined') {
+    app.use(utils.option(options));
+  }
+  if (typeof app.pkg === 'undefined') {
+    app.use(utils.pkg(options));
+  }
+  if (typeof app.config === 'undefined') {
+    app.use(utils.config(options));
+  }
+  if (typeof app.cli === 'undefined') {
+    app.use(utils.cli(options));
+  }
+}
 
 function createOpts(app, config, defaults) {
   if (typeof defaults !== 'undefined') {

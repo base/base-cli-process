@@ -38,7 +38,7 @@ describe('.map.asyncHelpers', function() {
       app.cli.process({asyncHelpers: {}}, cb);
     });
 
-    it('should register a glob of helpers', function(cb) {
+    it('should register a glob of async helpers', function(cb) {
       app.cli.process(['--asyncHelpers="test/fixtures/helpers/*.js"'], function(err, config) {
         if (err) return cb(err);
         assert(app._.helpers.async.hasOwnProperty('lower'));

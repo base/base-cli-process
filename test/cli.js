@@ -35,7 +35,7 @@ describe('plugin', function() {
     cb();
   });
 
-  it('should not overwrite an existing base-config-process', function(cb) {
+  it('should not overwrite an existing base-CONFIG-process', function(cb) {
     base = new Base();
     base.isApp = true;
     base.use(config());
