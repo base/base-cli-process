@@ -1,6 +1,6 @@
 # base-cli-process [![NPM version](https://img.shields.io/npm/v/base-cli-process.svg?style=flat)](https://www.npmjs.com/package/base-cli-process) [![NPM downloads](https://img.shields.io/npm/dm/base-cli-process.svg?style=flat)](https://npmjs.org/package/base-cli-process) [![Build Status](https://img.shields.io/travis/jonschlinkert/base-cli-process.svg?style=flat)](https://travis-ci.org/jonschlinkert/base-cli-process)
 
-> Commonly used config mappings for the base-cli plugin. Also pre-processes the given object with base-cli-schema before calling `.process()`
+> Normalizers for common argv commands handled by the base-cli plugin. Also pre-processes the given object with base-cli-schema before calling `.process()`
 
 ## Install
 
