@@ -14,7 +14,7 @@ describe('.map.tasks', function() {
   });
 
   describe('argv', function() {
-    it('should return booleans', function(cb) {
+    it.skip('should return booleans', function(cb) {
       base.cli.process(['--tasks'], function(err, config) {
         if (err) return cb(err);
         assert.equal(typeof config.tasks, 'boolean');

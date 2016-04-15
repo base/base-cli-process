@@ -3,6 +3,8 @@
 require('mocha');
 var assert = require('assert');
 var Base = require('base');
+require('helper-example');
+require('helper-coverage');
 var assemble = require('assemble-core');
 var cli = require('..');
 var app;

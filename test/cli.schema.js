@@ -2,8 +2,6 @@
 
 require('mocha');
 var assert = require('assert');
-var cli = require('base-cli');
-var pkg = require('base-pkg');
 var Schema = require('map-schema');
 var schema = require('..');
 var Base = require('base');
@@ -51,8 +49,6 @@ describe('.cli.schema', function() {
   beforeEach(function() {
     base = new Base();
     base.isApp = true;
-    base.use(pkg());
-    base.use(cli());
     base.use(schema());
   });
 

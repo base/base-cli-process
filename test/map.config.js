@@ -7,12 +7,11 @@ var data = require('base-data');
 var Base = require('base');
 var del = require('delete');
 var cli = require('..');
-var getConfig;
 var base;
 
 var cwd = process.cwd();
-var fixtures = path.resolve(__dirname, 'fixtures');
-var pkgPath = path.resolve(fixtures, 'package.json');
+var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
+var pkgPath = path.resolve(fixtures(), 'package.json');
 var pkgTmpl = {
   "name": "fixtures",
   "version": "0.0.0",
@@ -26,18 +25,16 @@ describe('.map.config', function() {
   beforeEach(function() {
     base = new Base();
     base.isApp = true;
-    base.cwd = fixtures;
     base.use(cli());
-    getConfig = function(key) {
-      return base.pkg.get([base._name, key]);
-    };
+    base.cwd = fixtures();
+    base.pkg.set(pkgTmpl);
+    base.pkg.save();
   });
 
   afterEach(function(cb) {
     del(pkgPath, function(err) {
       if (err) return cb(err);
-
-      base.pkg.set(pkgTmpl);
+      base.pkg.data = {};
       cb();
     });
   });
@@ -72,6 +69,7 @@ describe('.map.config', function() {
 
     it('should merge an object with an existing config object', function(cb) {
       base.pkg.set([base._name, 'foo'], 'bar');
+      base.pkg.save();
 
       base.cli.process(['--config=a:b'], function(err) {
         if (err) return cb(err);
@@ -153,6 +151,7 @@ describe('.map.config', function() {
 
     it('should merge an object with an existing config object', function(cb) {
       base.pkg.set([base._name, 'foo'], 'bar');
+      base.pkg.save();
 
       base.cli.process(['-c=a:b'], function(err) {
         if (err) return cb(err);

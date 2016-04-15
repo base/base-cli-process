@@ -11,8 +11,8 @@ var getConfig;
 var base;
 
 var cwd = process.cwd();
-var fixtures = path.resolve(__dirname, 'fixtures');
-var pkgPath = path.resolve(fixtures, 'package.json');
+var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
+var pkgPath = path.resolve(fixtures(), 'package.json');
 var pkgTmpl = {
   "name": "fixtures",
   "version": "0.0.0",
@@ -26,15 +26,16 @@ describe('.map.config.toc', function() {
   beforeEach(function() {
     base = new Base();
     base.isApp = true;
-    base.cwd = fixtures;
+    base.cwd = fixtures();
     base.use(cli());
+    base.pkg.set(pkgTmpl);
+    base.pkg.save();
   });
 
   afterEach(function(cb) {
     del(pkgPath, function(err) {
       if (err) return cb(err);
-
-      base.pkg.set(pkgTmpl);
+      base.pkg.data = {};
       cb();
     });
   });
