@@ -69,8 +69,12 @@ describe('.map.helpers', function() {
   });
 
   describe('argv (--helpers)', function() {
-    it.skip('should not choke on an empty object', function(cb) {
-      app.cli.process(['--helpers=foo'], cb);
+    it('should not choke on an empty object', function(cb) {
+      app.cli.process(['--helpers=""'], function(err) {
+        if (err) return cb(err);
+        assert.deepEqual(app._.helpers.sync, {});
+        cb();
+      });
     });
 
     it('should register an object of helpers by filepaths', function(cb) {

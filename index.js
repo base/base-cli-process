@@ -12,8 +12,7 @@ module.exports = function(config) {
   config = config || {};
 
   return function(app, base) {
-    if (!this.isApp) return;
-    if (this.isRegistered('base-cli-process')) return;
+    if (!this.isApp || this.isRegistered('base-cli-process')) return;
     debug('initializing <%s>, called from <%s>', __filename, module.parent.id);
 
     var options = createOpts(app, config);
@@ -62,6 +61,8 @@ module.exports = function(config) {
 };
 
 function initPlugins(app, options) {
+  app.use(utils.cwd());
+
   if (typeof app.option === 'undefined') {
     app.use(utils.option(options));
   }

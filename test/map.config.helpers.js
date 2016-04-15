@@ -3,23 +3,21 @@
 require('mocha');
 var path = require('path');
 var assert = require('assert');
-var data = require('base-data');
 var assemble = require('assemble-core');
 var del = require('delete');
 var cli = require('..');
-var getConfig;
 var base;
 
 var cwd = process.cwd();
 var fixtures = path.resolve.bind(path, __dirname, 'fixtures');
 var pkgPath = fixtures('package.json');
 var pkgTmpl = {
-  "name": "fixtures",
-  "version": "0.0.0",
-  "private": true,
-  "description": "",
-  "main": "index.js",
-  "license": "MIT"
+  'name': 'fixtures',
+  'version': '0.0.0',
+  'private': true,
+  'description': '',
+  'main': 'index.js',
+  'license': 'MIT'
 };
 
 describe('.map.config.helpers', function() {
@@ -72,15 +70,13 @@ describe('.map.config.helpers', function() {
   });
 
   describe('argv (--config.helpers)', function() {
-    it.only('should union a string with existing helpers', function(cb) {
+    it('should union a string with existing helpers', function(cb) {
       base.pkg.set([base._name, 'helpers'], ['foo']);
       base.pkg.save();
 
       base.cli.process(['--config.helpers=bar'], function(err) {
         if (err) return cb(err);
-        // assert.deepEqual(base.pkg.get([base._name, 'helpers']), ['foo', 'bar']);
-        console.log(base._.helpers)
-        assert(base._.helpers.sync.hasOwnProperty('foo'));
+        assert.deepEqual(base.pkg.get([base._name, 'helpers']), ['foo', 'bar']);
         cb();
       });
     });
