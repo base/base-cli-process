@@ -31,11 +31,11 @@ describe('.map.tasks', function() {
       });
     });
 
-    it('should uniquify tasks', function(cb) {
+    it('should not uniquify tasks', function(cb) {
       base.cli.process({tasks: ['foo', 'bar', 'foo']}, function(err, config) {
         if (err) return cb(err);
         assert(Array.isArray(config.tasks));
-        assert.equal(config.tasks.length, 2);
+        assert.equal(config.tasks.length, 3);
         cb();
       });
     });
@@ -59,11 +59,11 @@ describe('.map.tasks', function() {
       });
     });
 
-    it('should uniquify tasks', function(cb) {
+    it('should not uniquify tasks', function(cb) {
       base.cli.process({tasks: ['foo', 'bar', 'foo']}, function(err, config) {
         if (err) return cb(err);
         assert(Array.isArray(config.tasks));
-        assert.equal(config.tasks.length, 2);
+        assert.equal(config.tasks.length, 3);
         cb();
       });
     });

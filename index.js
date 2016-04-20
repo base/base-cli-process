@@ -45,7 +45,7 @@ module.exports = function(config) {
       var defaults = {
         sortArrays: false,
         omitEmpty: true,
-        keys: ['run', 'toc', 'layout', 'tasks', 'options', 'data', 'plugins', 'related', 'reflinks']
+        keys: ['init', 'run', 'toc', 'layout', 'tasks', 'options', 'data', 'plugins', 'related', 'reflinks']
       };
 
       var opts = createOpts(app, config, defaults);
