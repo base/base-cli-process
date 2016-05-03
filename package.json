@@ -87,13 +87,14 @@
     "reflinks": [
       "base-cli",
       "base-cli-schema",
-      "verb"
+      "verb",
+      "templates",
+      "base-data",
+      "base-option",
+      "base-pipeline"
     ],
     "lint": {
       "reflinks": true
     }
-  },
-  "base": {
-    "toc": true
   }
 }
