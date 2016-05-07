@@ -1,6 +1,7 @@
 'use strict';
 
 require('mocha');
+var path = require('path');
 var assert = require('assert');
 var assemble = require('assemble-core');
 var cli = require('..');
@@ -10,33 +11,58 @@ describe('.map.use', function() {
   beforeEach(function() {
     app = assemble();
     app.use(cli());
+    app.cwd = path.resolve(__dirname, 'fixtures/use');
   });
 
   describe('use', function() {
     it('should use a plugin', function(cb) {
-      app.once('use', function() {
-        cb();
+      var arr = [];
+
+      app.on('test', function(val) {
+        arr.push(val);
       });
 
-      app.cli.process({use: 'test/fixtures/use/aaa'}, function(err) {
+      app.cli.process({use: 'aaa'}, function(err, config) {
         if (err) return cb(err);
+        assert.equal(arr.length, 1);
+        assert.equal(arr[0], 'AAA');
+        cb();
+      });
+    });
+
+    it('should use an array of plugins', function(cb) {
+      var arr = [];
+      app.on('test', function(val) {
+        arr.push(val);
+      });
+
+      app.cli.process({use: 'aaa,bbb'}, function(err, config) {
+        if (err) return cb(err);
+        assert.equal(arr.length, 2);
+        assert.equal(arr[0], 'AAA');
+        assert.equal(arr[1], 'BBB');
+        cb();
       });
     });
 
     it('should use a plugin from a cwd', function(cb) {
-      app.once('use', function(key, val) {
-        cb();
+      var arr = [];
+      app.on('test', function(val) {
+        arr.push(val);
       });
 
       app.cli.process({
         cwd: 'test/fixtures/use',
-        use: ['aaa', 'bbb']
+        use: 'aaa'
       }, function(err) {
         if (err) return cb(err);
+        assert.equal(arr.length, 1);
+        assert.equal(arr[0], 'AAA');
+        cb();
       });
     });
 
-    it('should use an array of plugins from a cwd', function(cb) {
+    it('should use an array of plugins from a cwd passed on config', function(cb) {
       var arr = [];
 
       // test plugins emit `test`
@@ -45,12 +71,12 @@ describe('.map.use', function() {
       });
 
       app.cli.process({
-        cwd: 'test/fixtures/use',
-        use: 'aaa,bbb'
+        cwd: path.resolve(__dirname, 'fixtures/use/cwd'),
+        use: 'ccc'
       }, function(err) {
         if (err) return cb(err);
-        assert.equal(arr.length, 2);
-        assert.deepEqual(arr, ['AAA', 'BBB']);
+        assert.equal(arr.length, 1);
+        assert.equal(arr[0], 'CCC');
         cb();
       });
     });
