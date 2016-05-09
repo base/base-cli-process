@@ -58,6 +58,7 @@
     "helper-coverage": "^0.1.3",
     "helper-example": "^0.1.0",
     "map-schema": "^0.2.3",
+    "minimist": "^1.2.0",
     "mocha": "^2.4.5"
   },
   "keywords": [
@@ -87,11 +88,11 @@
     "reflinks": [
       "base-cli",
       "base-cli-schema",
-      "verb",
-      "templates",
       "base-data",
       "base-option",
-      "base-pipeline"
+      "base-pipeline",
+      "templates",
+      "verb"
     ],
     "lint": {
       "reflinks": true

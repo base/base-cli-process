@@ -42,14 +42,11 @@ module.exports = function(config) {
     this.cli.process = function(val, cb) {
       debug('normalizing argv object', val);
 
-      var defaults = {
-        sortArrays: false,
-        omitEmpty: true,
-        keys: ['init', 'run', 'toc', 'layout', 'tasks', 'options', 'data', 'plugins', 'related', 'reflinks']
-      };
+      var defaults = {sortArrays: false, omitEmpty: true};
+      var keys = ['get', 'set', 'toc', 'layout', 'options', 'data', 'plugins', 'related', 'reflinks', 'init', 'run', 'tasks'];
 
       var opts = createOpts(app, config, defaults);
-      var obj = this.schema.normalize(val, opts);
+      var obj = sortObject(this.schema.normalize(val, opts), keys);
 
       debug('processing normalized argv', obj);
       fn.call(this, obj, function(err) {
@@ -74,6 +71,21 @@ function initPlugins(app, options) {
   }
   if (typeof app.cli === 'undefined') {
     app.use(utils.cli(options));
+  }
+}
+
+function sortObject(obj, keys) {
+  if (Array.isArray(keys) && keys.length) {
+    keys = utils.arrUnion(keys, Object.keys(obj));
+    var len = keys.length, i = -1;
+    var res = {};
+    while (++i < len) {
+      var key = keys[i];
+      if (obj.hasOwnProperty(key)) {
+        res[key] = obj[key];
+      }
+    }
+    return res;
   }
 }
 
