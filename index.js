@@ -1,5 +1,6 @@
 'use strict';
 
+var assert = require('assert');
 var debug = require('debug')('base:cli:process');
 var fields = require('./lib/fields/');
 var utils = require('./lib/utils');
@@ -12,9 +13,10 @@ module.exports = function(config) {
   config = config || {};
 
   return function(app, base) {
-    if (!this.isApp || this.isRegistered('base-cli-process')) return;
+    if (!utils.isValid(app, 'base-cli-process')) return;
     debug('initializing <%s>, called from <%s>', __filename, module.parent.id);
 
+    app.use(assertPlugin);
     var options = createOpts(app, config);
     var schema;
 
@@ -98,4 +100,10 @@ function createOpts(app, config, defaults) {
     return utils.merge({}, options, options.schema);
   }
   return options;
+}
+
+function assertPlugin(app) {
+  app.define('assertPlugin', function(name) {
+    assert(app.registered.hasOwnProperty(name));
+  });
 }

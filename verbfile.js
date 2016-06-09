@@ -3,7 +3,7 @@
 var fields = require('./lib/fields');
 
 module.exports = function(app, base) {
-  app.extendWith('verb-readme-generator');
+  app.use(require('verb-readme-generator'));
 
   app.helper('flags', function() {
     return toList(fields).join('\n');
