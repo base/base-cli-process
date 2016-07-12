@@ -47,22 +47,22 @@ describe('.map.cwd', function() {
   });
 
   describe('options object', function() {
-    it('should set a cwd on app', function(cb) {
-      var count = 0;
-
-      base.on('cwd', function(val) {
-        assert.equal(val, process.cwd() + '/foo');
-        count++;
-      });
-
-      base.cli.process({cwd: 'foo'}, function(err) {
-        if (err) return cb(err);
-        assert.equal(count, 1);
-        cb();
-      });
-    });
-
     if (!process.env.CLI && !process.env.TRAVIS) {
+      it('should set a cwd on app', function(cb) {
+        var count = 0;
+
+        base.on('cwd', function(val) {
+          assert.equal(val, process.cwd() + '/foo');
+          count++;
+        });
+
+        base.cli.process({cwd: 'foo'}, function(err) {
+          if (err) return cb(err);
+          assert.equal(count, 1);
+          cb();
+        });
+      });
+
       it('should not take action when give cwd is the same as existing', function(cb) {
         var count = 0;
 
