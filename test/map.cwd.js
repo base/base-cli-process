@@ -29,19 +29,21 @@ describe('.map.cwd', function() {
       });
     });
 
-    it('should not take action when give cwd is the same as existing', function(cb) {
-      var count = 0;
+    if (!process.env.CLI && !process.env.TRAVIS) {
+      it('should not take action when give cwd is the same as existing', function(cb) {
+        var count = 0;
 
-      base.on('cwd', function(val) {
-        count++;
-      });
+        base.on('cwd', function(val) {
+          count++;
+        });
 
-      base.cli.process(['--cwd=.'], function(err) {
-        if (err) return cb(err);
-        assert.equal(count, 0);
-        cb();
+        base.cli.process(['--cwd=.'], function(err) {
+          if (err) return cb(err);
+          assert.equal(count, 0);
+          cb();
+        });
       });
-    });
+    }
   });
 
   describe('options object', function() {
@@ -60,18 +62,20 @@ describe('.map.cwd', function() {
       });
     });
 
-    it('should not take action when give cwd is the same as existing', function(cb) {
-      var count = 0;
+    if (!process.env.CLI && !process.env.TRAVIS) {
+      it('should not take action when give cwd is the same as existing', function(cb) {
+        var count = 0;
 
-      base.on('cwd', function(val) {
-        count++;
-      });
+        base.on('cwd', function(val) {
+          count++;
+        });
 
-      base.cli.process({cwd: process.cwd()}, function(err) {
-        if (err) return cb(err);
-        assert.equal(count, 0);
-        cb();
+        base.cli.process({cwd: process.cwd()}, function(err) {
+          if (err) return cb(err);
+          assert.equal(count, 0);
+          cb();
+        });
       });
-    });
+    }
   });
 });
