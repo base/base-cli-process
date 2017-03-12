@@ -4,6 +4,10 @@
   "version": "0.1.18",
   "homepage": "https://github.com/node-base/base-cli-process",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "contributors": [
+    "Jon Schlinkert <jon.schlinkert@sellside.com> (http://twitter.com/jonschlinkert)",
+    "Sean Lang <slang800@gmail.com> (http://slang.cx)"
+  ],
   "repository": "node-base/base-cli-process",
   "bugs": {
     "url": "https://github.com/node-base/base-cli-process/issues"
@@ -12,7 +16,7 @@
   "files": [
     "index.js",
     "lib",
-    "README.md"
+    "verbfile.js"
   ],
   "main": "index.js",
   "engines": {
@@ -69,6 +73,7 @@
     "app",
     "application",
     "base",
+    "base-plugin",
     "baseplugin",
     "building-blocks",
     "cli",
